@@ -1,9 +1,14 @@
-import { Refine, WelcomePage } from "@refinedev/core"
+import { Refine } from "@refinedev/core"
+import ListProducts from "./pages/products/list"
+import { dataProvider } from "./providers/data-provider"
 
 function App() {
   return (
-    <Refine>
-      <WelcomePage />
+    <Refine dataProvider={dataProvider}>
+      {/* <ShowProduct /> */}
+      {/* <EditProduct /> */}
+      <ListProducts />
+      {/* <CreateProduct /> */}
     </Refine>
   )
 }
