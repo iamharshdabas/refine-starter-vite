@@ -18,12 +18,12 @@ export const authProvider: AuthProvider = {
       return { success: true }
     }
 
-    return { success: false }
+    return { success: false, redirectTo: "/" }
   },
   logout: async () => {
     localStorage.removeItem("my_access_token")
     // We're returning success: true to indicate that the logout operation was successful.
-    return { success: true }
+    return { success: true, redirectTo: "/login" }
   },
   check: async () => {
     // When logging in, we'll obtain an access token from our API and store it in the local storage.

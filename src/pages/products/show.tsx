@@ -1,7 +1,7 @@
 import { useOne } from "@refinedev/core"
 
 const ShowProduct = () => {
-  const { data, isLoading } = useOne({ resource: "products", id: 123 })
+  const { data, isLoading } = useOne()
 
   if (isLoading) {
     return <div>Loading...</div>

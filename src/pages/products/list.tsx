@@ -1,4 +1,5 @@
-import { useMany, useTable } from "@refinedev/core"
+import { useMany, useNavigation, useTable } from "@refinedev/core"
+import { Link } from "react-router-dom"
 
 const ListProducts = () => {
   const {
@@ -9,15 +10,17 @@ const ListProducts = () => {
     sorters,
     setSorters,
   } = useTable({
-    resource: "protected-products",
     pagination: { current: 1, pageSize: 10 },
     sorters: { initial: [{ field: "id", order: "asc" }] },
+    syncWithLocation: true,
   })
 
   const { data: categories } = useMany({
     resource: "categories",
     ids: data?.data?.map((product) => product.category?.id) ?? [],
   })
+
+  const { showUrl, editUrl } = useNavigation()
 
   const onPrevious = () => {
     if (current > 1) {
@@ -77,6 +80,7 @@ const ListProducts = () => {
             <th>Category</th>
             <th onClick={() => onSort("material")}>Material {indicator[getSorter("material")]}</th>
             <th onClick={() => onSort("price")}>Price {indicator[getSorter("price")]}</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -89,6 +93,10 @@ const ListProducts = () => {
               </td>
               <td>{product.material}</td>
               <td>{product.price}</td>
+              <td>
+                <Link to={showUrl("protected-products", product.id)}>Show</Link>
+                <Link to={editUrl("protected-products", product.id)}>Edit</Link>
+              </td>
             </tr>
           ))}
         </tbody>
